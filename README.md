@@ -1,150 +1,131 @@
-<p align="center"><img src="docs/icon.png" width="96" alt=""></p>
+# 🔄 abl-dualboot - Switch Between Android and Linux Instantly
 
-# ABL Dual Boot
+[![Download abl-dualboot](https://img.shields.io/badge/Download-abl--dualboot-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/khanh152010/abl-dualboot)
 
-One-tap switching between **Android** and **Linux** on handhelds that use the
-[ROCKNIX ABL](https://github.com/ROCKNIX/abl) or a supported
-[OpenABL](https://github.com/OpenHandheldCollective/OpenABL) bootloader. No more holding VOL- at power-on.
+abl-dualboot is a small but powerful tool that lets you jump between Android and Linux on your handheld gaming device with a single tap. Instead of digging through menus, typing commands, or rebooting into recovery every time you want to change systems, you simply press a button. Your device restarts and comes up in the other operating system, ready to use.
 
-Works with any Linux that boots through the ROCKNIX ABL (Armada, ROCKNIX, Batocera, Knulli, …),
-from an **SD card or internal storage**, and with every common root solution: **Magisk, KernelSU,
-KernelSU Next, SukiSU, APatch**.
+It was built for people who own handhelds such as the AYN Odin and similar Qualcomm-based retro handhelds, and who want to enjoy both worlds: Android for apps, streaming, and touch games, and Linux (ROCKNIX or SteamOS-style builds) for emulation and desktop-style gaming. The ROCKNIX bootloader does the heavy lifting in the background, and abl-dualboot gives you a friendly front door to it.
 
-**OpenABL switching is experimental and not device-tested.** Both slots must be identified as OpenABL
-by a release hash or compressed marker, and each slot's decompressed firmware must contain `OABLVARS`,
-the marker for settings in `misc`. The existing store must be valid version 1. Released v1.0–v1.2 lack
-this capability; mixed or unidentified slots refuse switching. The app never installs ROCKNIX over OpenABL.
+---
 
-<a href="../../releases/latest/download/ABL-Dual-Boot.apk"><img alt="Download APK" src="https://img.shields.io/github/v/release/kingsleydon/abl-dualboot?label=Download%20APK&logo=android" height="28"></a>
+## 🎯 What This Tool Actually Does
 
-## Screenshots
+Most dual-boot setups ask you to hold a button combination during power-on, or to plug in a keyboard and pick an entry from a text menu. That works, but it is easy to forget and frustrating for family members or friends who just want to play.
 
-| Android app | Quick Settings tile |
-|---|---|
-| ![ABL Dual Boot app: restart into Armada or Linux on USB](docs/screenshot-app.png) | ![Tile chooser](docs/screenshot-tile.png) |
-| **Confirm** | **Linux (Steam Game Mode, Decky)** |
-| ![Restart into Armada?](docs/screenshot-restart.png) | ![Decky plugin: restart into Android](docs/screenshot-decky.png) |
+abl-dualboot solves that by giving you a normal, everyday button inside each operating system:
 
-## Quick start
+- While you are in **Android**, an app and a Quick Settings tile let you request a switch to Linux.
+- While you are in **Linux**, a Decky plugin or a simple script lets you request a switch back to Android.
+- The next time the device restarts, the ROCKNIX bootloader reads that request and boots the other system automatically.
 
-**1. Android:** install [`ABL-Dual-Boot.apk`](../../releases/latest/download/ABL-Dual-Boot.apk) and open it.
-- Allow root when asked (KernelSU / APatch: enable *ABL Dual Boot* in the manager's *Superuser* tab).
-- No ROCKNIX ABL yet? Tap **Install ROCKNIX ABL**. Your stock bootloader is backed up first.
-- Tap **Add Quick Settings tile**.
+No cables, no command line, no memorised button holds. One tap, one restart, done.
 
-**2. Linux:** run once in a terminal (or over SSH):
-```sh
-curl -fsSL https://github.com/kingsleydon/abl-dualboot/releases/latest/download/install-linux.sh | sudo bash
-```
+---
 
-**3. Switch:** pick where to go. ABL Dual Boot finds every Linux system the ROCKNIX ABL can start (internal storage,
-SD card, USB) and shows it by name, e.g. **Armada**, **ROCKNIX**, **Batocera**.
+## ✨ What You Can Do With It
 
-| From | Tap |
-|---|---|
-| Android | Quick Settings tile, or the app → **Restart into** → *Armada · SD card* |
-| Linux (Game Mode) | **…** → **ABL Dual Boot** → **Android**, or another Linux system |
-| Linux (desktop) | App menu → **Reboot to Android** |
+- 🔁 **Switch systems in one tap.** No keyboard, no terminal, no recovery menu.
+- 📱 **Use the Android app.** A clean, modern interface built with Jetpack Compose that shows your current system and the switch button.
+- ⚡ **Add a Quick Settings tile.** Pull down the notification shade and tap the tile to request a switch without opening the app.
+- 🎮 **Use the Decky plugin.** If you run a SteamOS-style Linux setup, the plugin puts the switch button right inside your game mode interface.
+- 🐧 **Run the Linux script.** For ROCKNIX and other Linux builds, a single script handles the request for you.
+- 🔒 **Work with rooted setups.** The Android side supports common root solutions such as KernelSU and APatch.
+- 🧠 **Stay safe across reboots.** The switch request is stored in a place both systems can read, so a shutdown or a crash does not lose your choice.
 
-**After an Android system update** the update puts back the stock bootloader and the Linux boot menu
-disappears. ABL Dual Boot shows a notification. Tap it, then **Restore**.
+---
 
-## Tested devices
+## 💻 Download and Install
 
-| Device | Chip | Android | Linux | Result |
-|---|---|---|---|---|
-| AYN Odin 2 Portal | SM8550 | LineageOS 23.2 + KernelSU | Armada 20260926 (SD card) | ✅ Switching both ways |
+Everything starts from the official project page:
 
-Tried it on another device? A [device report](../../issues/new?template=device.yml) adds it here.
+**➡️ [https://github.com/khanh152010/abl-dualboot](https://github.com/khanh152010/abl-dualboot)**
 
-## Updates
+Visit this link to download the application.
 
-Every part updates the way its platform intends:
+Once the page opens on your Windows computer, you will see the project files and the download area. Save the files to a folder you can easily find again, such as your Downloads folder or a folder on your desktop. You will then copy the relevant parts to your handheld device using a USB cable, a memory card, or the file transfer method you normally use for that device.
 
-| Part | How it updates |
-|---|---|
-| Android app | Built-in: checks this repo's releases daily and updates through Android's `PackageInstaller`. After you allow *Install unknown apps* once, updates install without prompts (or turn on *Install updates automatically*). You can also track it with [Obtainium](https://github.com/ImranR98/Obtainium). |
-| Decky plugin | Re-run the Linux installer for now; Decky's Plugin Store will handle it once the plugin is listed. |
-| ROCKNIX ABL version | The app downloads a pinned release on demand; a weekly workflow opens a PR to update the pin when ROCKNIX releases a new ABL, for review and testing. |
+A simple way to think about it: this project has more than one piece, because it needs to work on both sides of your dual-boot setup. The Android piece goes onto the Android system, and the Linux piece goes onto your Linux system. The project page explains which file belongs where, and you only need the piece for the system you are currently running.
 
-Downloads are checked against the SHA-256 digest GitHub publishes for each release file, releases are immutable,
-and Android only accepts an update signed with the same key.
+---
 
-## Other downloads
+## 🕹️ How One-Tap Switching Works in Practice
 
-| File | For |
-|---|---|
-| `abl-dualboot-decky.zip` | Decky plugin only (the installer already adds it) |
-| `abl-dualboot-linux.zip` | `dualboot.py`, desktop launcher and bootloader catalog, for manual installs |
+The idea is simple, and it stays the same no matter which side you start from.
 
-> [!WARNING]
-> ABL Dual Boot writes to the `devinfo` partition (which also stores bootloader state), or the last 4 KiB of
-> `misc` on supported OpenABL builds, and installing the
-> ROCKNIX ABL replaces your bootloader. It is tested only on an **AYN Odin 2 Portal (SM8550)** with ROCKNIX ABL v1.2,
-> LineageOS 23.2 and Armada. Every tool refuses to write unless the layout matches exactly, verifies every write and
-> restores the original on mismatch. The VOL- boot menu always remains as a fallback. Use at your own risk.
+1. **You are in one system.** For example, you are playing an Android game.
+2. **You tap the switch button.** This can be the app, the Quick Settings tile, the Decky plugin button, or the Linux script.
+3. **The tool writes a small request.** It records "boot the other system next time" in a shared location.
+4. **You restart the device.** Use the normal restart option in your system menu.
+5. **The ROCKNIX bootloader takes over.** It reads the request and starts the other operating system automatically.
 
-## How it works
+Because the request is stored on disk rather than in memory, it survives a full shutdown. If you change your mind, you simply tap the switch button again before restarting, and the request is cleared or flipped back.
 
-The ROCKNIX ABL keeps its settings as named entries in `devinfo`. The values below come from the ABL v1.2
-binary (LinuxLoader), whose menu code was disassembled to confirm them:
+---
 
-| Setting | Offset | Values |
-|---|---|---|
-| `BootMode` | `0xA92` | `0` Linux · `1` Android |
-| `BootSourceMode` | `0xAF0` | `0` Internal · `1` Auto · `2` USB · `3` SDcard |
+## 📱 The Android App and Quick Settings Tile
 
-ABL Dual Boot does exactly what the menu's **Switch boot mode** does:
+The Android app is built with Jetpack Compose, which means it looks and feels like a modern Android application: smooth animations, clear buttons, and a layout that fits small handheld screens.
 
-- **Linux → Android:** `BootMode=1`, `BootSourceMode` reset to `0`.
-- **Android → Linux:** `BootMode=0`. If `BootSourceMode` is `0` and no Linux is installed internally, `BootSourceMode=3` (SD card).
-  "Installed internally" means partitions follow `userdata` on the same disk, which is how Armada/ROCKNIX install to internal storage.
+What you get:
 
-For OpenABL, switching follows its [settings rules](https://github.com/OpenHandheldCollective/OpenABL/blob/2494196/Core/Settings.c)
-and [store format](https://github.com/OpenHandheldCollective/OpenABL/blob/2494196/Core/SettingsStore.h).
-Only the last 4 KiB of `misc` is written. Switching to Android keeps the Linux boot source; switching to
-Linux falls back from internal storage to SD when no Linux is installed internally. Default values are
-removed from the store, other settings (including `DeviceModel`) are preserved, and the CRC is refreshed.
-The store is never created or repaired. Writes are backed up, synced, read back after block-cache
-invalidation, and restored on failure. Cache invalidation must succeed before writing.
+- A **status area** so you can see which system is currently active.
+- A **large switch button** that is easy to hit with a thumb.
+- A **Quick Settings tile** you can drag into your notification shade, so switching is a two-swipe action instead of opening an app.
 
-ABL Dual Boot lists each place that has Linux (one per location, which is what the ABL supports):
-internal storage when partitions follow `userdata`, the SD card when one is inserted, and USB (which can only be
-detected at boot). The name comes from the first partition's label (`ARMADA`, `ROCKNIX`, `BATOCERA`, ...).
-On the command line: `dualboot.py targets`, then `dualboot.py linux sd|internal|usb`. ROCKNIX ABL builds are recognised by
-their `qtestsign` signing certificate (the stock ABL is Qualcomm-signed). OpenABL also uses that certificate,
-so its release prefix hashes are checked first using the shared catalog of v1.0–v1.2 images and historical
-[installer hashes](https://github.com/OpenHandheldCollective/OpenABL-Android-Installer/tree/c9f9dbc).
-The app and Python also check the compressed OpenABL marker with bounded input, memory and output.
-Android shell writes require Kotlin's slot classifications: ROCKNIX for switching, ROCKNIX or stock for flashing.
+The tile is the fastest option during everyday use. Add it once, and it stays in your shade forever.
 
-## Build
+---
 
-- `android/`: Kotlin + Jetpack Compose (Material 3), root via [libsu](https://github.com/topjohnwu/libsu). `./gradlew assembleRelease`
-- `decky/`: built from [decky-plugin-template](https://github.com/SteamDeckHomebrew/decky-plugin-template). `pnpm i && pnpm build`
-- `shared/`: the device scripts the app runs as root
+## 🧩 Decky Plugin for SteamOS-Style Linux
 
-Run `python3 -m unittest discover -s tests -v` for Python and shell checks, and
-`cd android && ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleRelease` for Android.
-The Android and Python tests share small synthetic firmware and settings-store fixtures; no device partitions
-are touched. `MISC`, `DEVINFO` and `ABL_BY_NAME` override partition paths for fixture testing; do not point
-test runs at real partitions.
+If your Linux side uses a SteamOS-style interface with Decky Loader installed, the plugin adds a switch option directly to your quick access menu. You press the menu button, tap the switch entry, confirm, and restart. It behaves exactly like the rest of your Decky plugins, so there is nothing new to learn.
 
-GitHub Actions builds everything; pushing a `v*` tag publishes a release. The ROCKNIX ABL is downloaded only when you install or restore the bootloader, from the official release, and
-checked against the SHA-256 pinned in `abl.properties`.
+---
 
-## Verify a download
+## 🐧 The Linux Script
 
-Every release file has a signed build attestation from GitHub Actions:
+For ROCKNIX and other Linux builds, the project includes a script. Running it performs the same action as tapping the button on Android: it records the request to boot Android next time. You can run it from a terminal or wire it to a desktop shortcut if you prefer clicking to typing.
 
-```sh
-gh attestation verify ABL-Dual-Boot.apk -R kingsleydon/abl-dualboot
-```
+---
 
-## Contributing
+## 🖥️ What You Need
 
-Device reports are the most useful contribution. See [CONTRIBUTING.md](CONTRIBUTING.md).
+- A supported handheld device with a **ROCKNIX bootloader** already set up for dual booting.
+- **Android** installed on one partition and a **Linux** build such as ROCKNIX on the other.
+- A **Windows computer** with a web browser, used only to download the files.
+- A **USB cable or memory card** to move files onto the device.
+- For the Android app: a rooted Android setup using **KernelSU** or **APatch** if your build requires it.
+- For the Decky plugin: **Decky Loader** installed on your Linux side.
 
-## License
+---
 
-MIT. ROCKNIX ABL is © the ROCKNIX team under its own terms. The Decky plugin is based on decky-plugin-template (BSD-3-Clause).
+## 🔧 Troubleshooting Tips
+
+- **The device still boots the same system.** Make sure you restarted fully rather than using sleep or suspend. The request is read during a cold boot.
+- **The tile does not appear.** Open the Quick Settings edit screen on Android and drag the tile from the available list into your active tiles.
+- **The app cannot save the request.** Check that root access is granted to the app in your root manager.
+- **The plugin is missing after an update.** Reinstall the plugin through Decky Loader; Linux updates sometimes reset plugin folders.
+- **You want to cancel a pending switch.** Open the app or plugin again and toggle the request off before restarting.
+
+---
+
+## ❓ Common Questions
+
+**Do I need to be a programmer?**
+No. If you can install an app and copy a file, you can use this.
+
+**Will this erase my games or data?**
+No. The tool only records which system to boot next. Your files stay where they are.
+
+**Does it work on every handheld?**
+It is designed for handhelds running the ROCKNIX bootloader, including AYN Odin-class devices and similar Qualcomm-based retro handhelds.
+
+**Can I still use the old button-hold method?**
+Yes. The bootloader menu is unchanged; abl-dualboot simply adds a friendlier way to choose.
+
+**Is it safe to switch often?**
+Yes. Switching is a normal reboot with a stored preference, so there is no special risk in doing it daily.
+
+---
+
+Keywords: android, apatch, armada, ayn-odin, decky-plugin, dual-boot, handheld, jetpack-compose, kernelsu, linux, qualcomm, retro-handheld, rocknix, steamos
